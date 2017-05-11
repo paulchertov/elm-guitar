@@ -1,4 +1,4 @@
-module Tests.ModelPitch exposing (stringTest)
+module Tests.ModelPitch exposing (stringTest, frequencyTest)
 
 import Html exposing (text, div)
 
@@ -31,4 +31,25 @@ stringTest =
       , case3 == -1 |> Basics.toString |> text
       , (Model.Pitch.toString case4) == "A4" |> Basics.toString |> text
       , (Model.Pitch.toString case5) == "C0" |> Basics.toString |> text
+      ]
+
+frequencyTest =
+  let
+    c0 =
+      case Model.Pitch.fromString "C0" of
+        Ok ok -> ok
+        Err err -> -1
+    a4 =
+      case Model.Pitch.fromString "A4" of
+        Ok ok -> ok
+        Err err -> -1
+    a5 =
+      case Model.Pitch.fromString "A5" of
+        Ok ok -> ok
+        Err err -> -1
+  in
+    div []
+      [ (Model.Pitch.frequency c0 - 16.35) < 1 |> Basics.toString |> text
+      , (Model.Pitch.frequency a4 - 440.0) < 1 |> Basics.toString |> text
+      , (Model.Pitch.frequency a5 - 880.00) < 1 |> Basics.toString |> text
       ]

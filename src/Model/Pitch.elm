@@ -50,7 +50,7 @@ pickAt string pitch =
     if pluck < 0 || pluck > fretsCount then Nothing else Just pluck
 
 --find frequency of pluck's note tuned from A4 (440Hz)--
---not tested--
+--tested--
 frequency: Int -> Float
 frequency pitch =
   let
