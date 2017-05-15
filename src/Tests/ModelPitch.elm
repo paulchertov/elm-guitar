@@ -1,4 +1,4 @@
-module Tests.ModelPitch exposing (stringTest, frequencyTest)
+module Tests.ModelPitch exposing (stringTest, frequencyTest, pickAtTest)
 
 import Html exposing (text, div)
 
@@ -52,4 +52,45 @@ frequencyTest =
       [ (Model.Pitch.frequency c0 - 16.35) < 1 |> Basics.toString |> text
       , (Model.Pitch.frequency a4 - 440.0) < 1 |> Basics.toString |> text
       , (Model.Pitch.frequency a5 - 880.00) < 1 |> Basics.toString |> text
+      ]
+
+pickAtTest =
+  let
+    e4 =
+      case Model.Pitch.fromString "E4" of
+        Ok ok -> ok
+        Err err -> -1
+    b3 =
+      case Model.Pitch.fromString "B3" of
+        Ok ok -> ok
+        Err err -> -1
+    g3 =
+      case Model.Pitch.fromString "G3" of
+        Ok ok -> ok
+        Err err -> -1
+    e5 =
+      case Model.Pitch.fromString "E5" of
+        Ok ok -> ok
+        Err err -> -1
+
+    test1 =
+      case Model.Pitch.pickAt e4 e5 of
+        Err err -> err
+        Ok ok -> Basics.toString (ok == 12)
+    test2 = case Model.Pitch.pickAt b3 e4 of
+      Err err -> err
+      Ok ok -> Basics.toString (ok == 5)
+    test3 = case Model.Pitch.pickAt g3 b3 of
+      Err err -> err
+      Ok ok -> Basics.toString (ok ==4)
+    test4 =
+      case Model.Pitch.pickAt e5 e4 of
+        Err err -> "True"
+        Ok ok -> "False"
+  in
+    div []
+      [ text test1
+      , text test2
+      , text test3
+      , text test4
       ]

@@ -3,12 +3,12 @@ import Html exposing (beginnerProgram, text)
 import Update.Msg exposing (Msg)
 import Model.Model exposing (Model, newModel)
 
-import Tests.ModelPitch exposing (frequencyTest)
+import Tests.ModelPitch exposing (pickAtTest)
 update msg model =
   model
 
 view model =
-  frequencyTest
+  pickAtTest
 
 main =
   beginnerProgram { model = newModel, view = view, update = update }
