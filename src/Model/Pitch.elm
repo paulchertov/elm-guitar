@@ -28,26 +28,37 @@ tunings =
   Dict.fromList [
     ("EBGDAE", --standard tuning
       Array.fromList
-        [ fromString "E4"
-        , fromString "B3"
-        , fromString "G3"
-        , fromString "D3"
-        , fromString "A2"
-        , fromString "E2"]
+        [ fromString_ "E4"
+        , fromString_ "B3"
+        , fromString_ "G3"
+        , fromString_ "D3"
+        , fromString_ "A2"
+        , fromString_ "E2"]
     )
   ]
+
+--unsafe: returns tuning without checking for error--
+--not tested--
+getExistingTuning String -> Array Int
+getExistingTuning tuning=
+  case Dict.get tuning tunings of
+    Just result -> result
+    Nothing -> Array.empty
 
 {-fret number on string where note can be plucked
 arguments:
  string - tuning of string,
  pluck - fret where string was plucked-}
---not tested--
-pickAt: Int -> Int -> Maybe Int
+--tested--
+pickAt: Int -> Int -> Result String Int
 pickAt string pitch =
   let
     pluck = pitch - string
   in
-    if pluck < 0 || pluck > fretsCount then Nothing else Just pluck
+    if pluck < 0 || pluck > fretsCount then
+      Err "cannot be picked"
+    else
+      Ok pluck
 
 --find frequency of pluck's note tuned from A4 (440Hz)--
 --tested--
@@ -89,3 +100,11 @@ fromString input =
         case octave of
           Ok octave -> Ok (12*octave + pitch)
           Err error -> Err "No octave"
+
+--unsafe: returns tuning without checking for error--
+--not tested--
+getExistingTuning String -> Array Int
+getExistingTuning tuning=
+  case Dict.get tuning tunings of
+    Just result -> result
+    Nothing -> Array.empty
