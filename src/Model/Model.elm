@@ -28,12 +28,6 @@ type alias Chord =
   , duration: Int
   }
 
---TODO: move to src\model\Pick.elm
-type Pick =
-    EmptyPick
-    | SimplePick Int
-    | XPluck
-
 --TODO: replace stub with actual method
 newModel =
     { bars = Array.empty
