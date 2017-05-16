@@ -39,7 +39,7 @@ tunings =
 
 --unsafe: returns tuning without checking for error--
 --not tested--
-getExistingTuning String -> Array Int
+getExistingTuning: String -> Array Int
 getExistingTuning tuning=
   case Dict.get tuning tunings of
     Just result -> result
@@ -101,10 +101,10 @@ fromString input =
           Ok octave -> Ok (12*octave + pitch)
           Err error -> Err "No octave"
 
---unsafe: returns tuning without checking for error--
+--return pitch of note from note's string representation--
 --not tested--
-getExistingTuning String -> Array Int
-getExistingTuning tuning=
-  case Dict.get tuning tunings of
-    Just result -> result
-    Nothing -> Array.empty
+fromString_: String -> Int
+fromString_ input =
+  case fromString input of
+    Ok ok -> ok
+    Err err -> -1
