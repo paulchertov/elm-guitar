@@ -2,6 +2,8 @@ module Model.Model exposing (Model, Selection, newModel)
 
 import Array exposing (Array, empty)
 
+import Model.Pick exposing (Pick)
+
 type Selection =
   NothingSelected
   | NoteBarSelected Int Int Int

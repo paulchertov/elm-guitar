@@ -1,5 +1,5 @@
 module Model.Pitch exposing (notes, fretsCount, tunings, pickAt, frequency,
- toString, fromString)
+ toString, fromString, fromString_)
 
 import Array exposing (Array, fromList, get)
 import Dict exposing (get, fromList)
@@ -56,7 +56,7 @@ pickAt string pitch =
     pluck = pitch - string
   in
     if pluck < 0 || pluck > fretsCount then
-      Err "cannot be picked"
+      Err "Cannot be picked"
     else
       Ok pluck
 

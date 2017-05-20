@@ -1,6 +1,6 @@
-module Model.Pick exposing (Pick, fromString, fromNote)
+module Model.Pick exposing (Pick, fromString, fromNote, toPluck, toNote)
 
-import Model.Pitch exposing (fromString, frequency)
+import Model.Pitch as Pitch
 
 --Type for 1 pick - one pluck on guitar string--
 type Pick =
@@ -13,30 +13,29 @@ type Pick =
 --not tested--
 fromString: String -> Int -> Result String Pick
 fromString input string =
-  let
-    at = String.toInt input
-  in
-    case at of
-      Err err -> Err "wrong symbol"
+  if input == "X" || input == "x" then
+    Ok XPick
+  else if input == "" || input == "-" then
+    Ok EmptyPick
+  else
+    case String.toInt input of
       Ok at ->
-        if input == "X" || input == "x" then
-          Ok XPick
-        else if input == "" || input == "-" then
-          Ok EmptyPick
-        else if at >= 0 || at <= fretsCount then
-          Ok <| Pick <| string + at
-        else
-          Err "Trying to pick outside of fret"
+        if at >= 0 && at <= Pitch.fretsCount then
+          Ok <| SimplePick <| string + at
+          else
+            Err "Trying to pick outside of fret"
+      Err err ->
+        Err "Wrong input"
 
 --create Pick from note and octave string representation ex C#3
 --not tested--
 fromNote: String -> Result String Pick
-fromNote input
+fromNote input =
   if input == "" then
     Ok EmptyPick
   else
     case Pitch.fromString input of
-      Ok pitch -> SimplePick pitch
+      Ok pitch -> Ok <| SimplePick pitch
       Err err -> Err err
 
 --string representation of Pick on tab bar
@@ -58,4 +57,4 @@ toNote pick =
   case pick of
     EmptyPick -> ""
     XPick -> "X"
-  SimplePick pitch -> Pitch.toString pitch
+    SimplePick pitch -> Pitch.toString pitch
