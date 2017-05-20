@@ -33,6 +33,8 @@ fromNote: String -> Result String Pick
 fromNote input =
   if input == "" then
     Ok EmptyPick
+  else if input == "X" || input == "x" then
+    Ok XPick
   else
     case Pitch.fromString input of
       Ok pitch -> Ok <| SimplePick pitch

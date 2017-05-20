@@ -1,4 +1,4 @@
-module Tests.ModelPick exposing (fromStringTest)
+module Tests.ModelPick exposing (fromStringTest, fromNoteTest)
 
 import Html exposing (text, div)
 
@@ -72,3 +72,29 @@ fromStringTest =
       <| List.map text [case1, case2, case3, case4, case5, case6, case7, case8, case9, case10
       , case11, case12, case13, case14
       ]
+
+fromNoteTest =
+  let
+    string1 = Model.Pitch.fromString_ "E4"
+    string2 = Model.Pitch.fromString_ "B3"
+    case1 = case Model.Pick.fromNote "E4" of
+      Ok pick -> (Model.Pick.toNote pick) == "E4" |> Basics.toString
+      Err err -> err
+    case2 = case Model.Pick.fromNote "E4" of
+      Ok pick -> (Model.Pick.toPluck string1 pick) == "0" |> Basics.toString
+      Err err -> err
+    case3 = case Model.Pick.fromNote "B4" of
+      Ok pick -> (Model.Pick.toNote pick) == "B4" |> Basics.toString
+      Err err -> err
+    case4 = case Model.Pick.fromNote "B4" of
+      Ok pick -> (Model.Pick.toPluck string2 pick) == "12" |> Basics.toString
+      Err err -> err
+    case5 = case Model.Pick.fromNote "T1" of
+      Err err -> err == "No such note" |> Basics.toString
+      Ok pick -> "False"
+    case6 = case Model.Pick.fromNote "A" of
+      Err err -> err == "No octave" |> Basics.toString
+      Ok pick -> "False"
+  in
+    div []
+      <| List.map text [case1, case2, case3, case4, case5, case6]
