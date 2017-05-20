@@ -10,7 +10,7 @@ type Pick =
 
 {-create Pick from number of fret where string was plucked (or X)
  and string tuning-}
---not tested--
+--tested--
 fromString: String -> Int -> Result String Pick
 fromString input string =
   if input == "X" || input == "x" then
@@ -28,7 +28,7 @@ fromString input string =
         Err "Wrong input"
 
 --create Pick from note and octave string representation ex C#3
---not tested--
+--tested--
 fromNote: String -> Result String Pick
 fromNote input =
   if input == "" then
@@ -41,7 +41,7 @@ fromNote input =
       Err err -> Err err
 
 --string representation of Pick on tab bar
---not tested--
+--tested--
 toPluck: Int -> Pick -> String
 toPluck string pick =
   case pick of
@@ -53,7 +53,7 @@ toPluck string pick =
         Err err -> err --impossible option
 
 --string representation of Pick on text note bar
---not tested--
+--tested--
 toNote: Pick -> String
 toNote pick =
   case pick of

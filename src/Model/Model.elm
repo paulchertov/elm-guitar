@@ -24,12 +24,6 @@ type alias Bar =
   , comment: String
   }
 
---TODO: move to src\model\Chord.elm
-type alias Chord =
-  { picks: Array Pick
-  , duration: Int
-  }
-
 --TODO: replace stub with actual method
 newModel =
     { bars = Array.empty
