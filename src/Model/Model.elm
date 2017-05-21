@@ -3,6 +3,7 @@ module Model.Model exposing (Model, Selection, newModel)
 import Array exposing (Array, empty)
 
 import Model.Pick exposing (Pick)
+import Model.Chord exposing (Chord)
 
 type Selection =
   NothingSelected
@@ -26,9 +27,9 @@ type alias Bar =
 
 --TODO: replace stub with actual method
 newModel =
-    { bars = Array.empty
-    , tuning = Array.empty
-    , error = ""
-    , playing = False
-    , selection = NothingSelected
-    }
+  { bars = Array.empty
+  , tuning = Array.empty
+  , error = ""
+  , playing = False
+  , selection = NothingSelected
+  }

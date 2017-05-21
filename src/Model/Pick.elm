@@ -1,12 +1,13 @@
-module Model.Pick exposing (Pick, fromString, fromNote, toPluck, toNote)
+module Model.Pick exposing (Pick(..),
+  fromString, fromNote, toPluck, toNote)
 
 import Model.Pitch as Pitch
 
 --Type for 1 pick - one pluck on guitar string--
 type Pick =
-    EmptyPick
-    | SimplePick Int
-    | XPick
+  EmptyPick
+  | SimplePick Int
+  | XPick
 
 {-create Pick from number of fret where string was plucked (or X)
  and string tuning-}

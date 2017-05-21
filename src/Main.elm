@@ -3,12 +3,12 @@ import Html exposing (beginnerProgram, text)
 import Update.Msg exposing (Msg)
 import Model.Model exposing (Model, newModel)
 
-import Tests.ModelPick exposing (fromNoteTest)
+import Tests.ModelChord exposing (chordTest)
 update msg model =
   model
 
 view model =
-  fromNoteTest
+  chordTest
 
 main =
   beginnerProgram { model = newModel, view = view, update = update }
