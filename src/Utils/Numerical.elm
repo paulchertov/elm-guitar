@@ -1,4 +1,4 @@
-module Utils.Numerical exposing(maxPowerOfTwo)
+module Utils.Numerical exposing (maxPowerOfTwo)
 
 --returns maximal power of two, for which power of two is less than limit
 --not tested--
@@ -12,4 +12,6 @@ maxPowerOfTwo limit =
         Nothing -> Just current
         Just val -> Just val
   in
-    maxPowerOfTwo_ 1
+    case maxPowerOfTwo_ 1 of
+      Just val -> val
+      Nothing -> 0
