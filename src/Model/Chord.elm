@@ -16,7 +16,7 @@ chordRange: Int
 chordRange = 256
 
 --creating new Chord containing 6 empty picks--
---not tested--
+--tested--
 newChord: Int -> Chord
 newChord duration =
   { picks = Array.repeat 6 Pick.EmptyPick
@@ -24,7 +24,7 @@ newChord duration =
   }
 
 --update Pick in chord from its pluck representation--
---not tested--
+--tested--
 changePick: Int -> Int -> String -> Chord -> Result String Chord
 changePick stringIndex stringPitch input chord =
   case Pick.fromString input stringPitch of
@@ -32,7 +32,7 @@ changePick stringIndex stringPitch input chord =
     Err err -> Err err
 
 --update Pick in chord from its note representation--
---not tested--
+--tested--
 changeNote: Int -> String -> Chord -> Result String Chord
 changeNote stringIndex input chord =
   case Pick.fromNote input of

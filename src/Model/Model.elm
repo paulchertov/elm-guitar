@@ -4,6 +4,7 @@ import Array exposing (Array, empty)
 
 import Model.Pick exposing (Pick)
 import Model.Chord exposing (Chord)
+import Model.Bar exposing (Bar)
 
 type Selection =
   NothingSelected
@@ -17,12 +18,6 @@ type alias Model =
   , error: String
   , playing: Bool
   , selection: Selection
-  }
-
---TODO: move to src\model\Bar.elm
-type alias Bar =
-  { chords: Array Chord
-  , comment: String
   }
 
 --TODO: replace stub with actual method

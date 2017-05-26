@@ -2,7 +2,7 @@ module Utils.Numerical exposing (maxPowerOfTwo)
 
 --returns maximal power of two, for which power of two is less than limit
 --not tested--
-maxPowerOfTwo: Int -> Int
+maxPowerOfTwo: Int -> Maybe Int
 maxPowerOfTwo limit =
   let
     maxPowerOfTwo_: Int -> Maybe Int
@@ -12,6 +12,4 @@ maxPowerOfTwo limit =
         Nothing -> Just current
         Just val -> Just val
   in
-    case maxPowerOfTwo_ 1 of
-      Just val -> val
-      Nothing -> 0
+    maxPowerOfTwo_ 1
