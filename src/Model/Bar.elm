@@ -1,6 +1,9 @@
-module Model.Bar exposing (Bar, length, space, addChord, changeChordDuration)
+module Model.Bar exposing (Bar, newBar, length, space, repr,
+  addChord, changeChordDuration,
+  changePick, changeNote)
 
 import Array exposing (Array)
+import Html exposing (text, div, br)
 
 import Model.Chord as Chord
 import Utils.Numerical exposing (maxPowerOfTwo)
@@ -31,6 +34,33 @@ length bar =
 space: Bar -> Int
 space bar = Chord.chordRange - length bar
 
+repr: Bar -> Html.Html msg
+repr bar =
+  let
+    mapChord =
+      \chord ->
+        div [] [text (Basics.toString chord)]
+  in
+    div []
+      (
+        [ text "[[Bar{"
+        , text "comment: "
+        , text bar.comment
+        , text ";space: "
+        , text <| Basics.toString <| space bar
+        , text ";length: "
+        , text <| Basics.toString <| length bar
+        , text ";chords: "
+        , br [] []
+        ] ++
+        (Array.toList <| Array.map mapChord bar.chords)
+        ++
+        [ text "}]]"
+        , br [] []
+        ]
+      )
+
+
 --add chord to Bar--
 --not tested--
 addChord: Bar -> Bar
@@ -45,12 +75,15 @@ addChord bar =
           Array.push (Chord.newChord Chord.chordRange) bar.chords
         Just last ->
           if maxVal == 0 then
-            bar.chords
-            |> Array.set
-              ((Array.length bar.chords) - 1)
-              {last | duration = last.duration // 2}
-            |> Array.push
-              (Chord.newChord (last.duration // 2))
+            if last.duration > 1 then
+              bar.chords
+              |> Array.set
+                ((Array.length bar.chords) - 1)
+                {last | duration = last.duration // 2}
+              |> Array.push
+                (Chord.newChord (last.duration // 2))
+            else
+              bar.chords
           else
             if last.duration <= maxVal then
               Array.push (Chord.newChord last.duration) bar.chords
