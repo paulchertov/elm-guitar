@@ -83,3 +83,27 @@ changeChordDuration duration chordIndex bar =
           Just { bar | chords =
             Array.set chordIndex { chord | duration = newDuration } bar.chords
           }
+
+{-changes pick in target chord on target string in this bar
+pick described with its pluck representation -}
+--not tested
+changePick: Int -> Int -> Int -> String -> Bar -> Result String Bar
+changePick chordIndex stringIndex stringPitch input bar =
+  case Array.get chordIndex bar.chords of
+    Nothing -> Err "Cannot find chord with this index"
+    Just chord ->
+      case Chord.changePick stringIndex stringPitch input chord of
+        Ok ok -> Ok {bar | chords = Array.set chordIndex ok bar.chords}
+        Err err -> Err err
+
+{-changes pick in target chord on target string in this bar
+pick described with its note representation-}
+--not tested
+changeNote: Int -> Int -> String -> Bar -> Result String Bar
+changeNote chordIndex stringIndex input bar =
+  case Array.get chordIndex bar.chords of
+    Nothing -> Err "Cannot find chord with this index"
+    Just chord ->
+      case Chord.changeNote stringIndex input chord of
+        Ok ok -> Ok {bar | chords = Array.set chordIndex ok bar.chords}
+        Err err -> Err err
