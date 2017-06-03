@@ -3,12 +3,12 @@ import Html exposing (beginnerProgram, text)
 import Update.Msg exposing (Msg)
 import Model.Model exposing (Model, newModel)
 
-import Tests.UtilsNumerical exposing (maxPowerOfTwoTest)
+import Tests.UtilsCollections exposing (splitArrayAtTest)
 update msg model =
   model
 
 view model =
-  maxPowerOfTwoTest
+  splitArrayAtTest
 
 main =
   beginnerProgram { model = newModel, view = view, update = update }
