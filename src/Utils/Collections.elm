@@ -41,7 +41,7 @@ removeArrayItemAt at array =
     (Array.slice (at+1) (Array.length array) array)
 
 --insert item in array at target index--
---not tested--
+--tested--
 insertArrayItemAt: Int -> a -> Array a -> Array a
 insertArrayItemAt at item array =
   Array.append (Array.slice 0 at array)
