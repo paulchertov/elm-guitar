@@ -7,6 +7,7 @@ import Html exposing (text, div, br)
 
 import Model.Chord as Chord
 import Utils.Numerical exposing (maxPowerOfTwo)
+import Utils.Collections exposing (removeArrayItemAt, insertArrayItemAt)
 
 --type for one bar--
 type alias Bar =
@@ -34,6 +35,8 @@ length bar =
 space: Bar -> Int
 space bar = Chord.chordRange - length bar
 
+--Html representation of Bar for debugging purpouses--
+--not tested--
 repr: Bar -> Html.Html msg
 repr bar =
   let
@@ -92,6 +95,18 @@ addChord bar =
   in
     { bar | chords = chords }
 
+--deletes Chord with target index from Bar--
+--not tested--
+deleteChord: Int -> Bar -> Bar
+deleteChord at bar =
+  { bar | chords = removeArrayItemAt  at bar.chords }
+
+--insert Chord to target position at Bar--
+--not tested--
+insertChord: Int -> Chord.Chord -> Bar -> Bar
+insertChord at chord bar =
+  { bar | chords = insertArrayItemAt at chord bar.chords }
+
 --returns last Chord in Bar--
 --not tested--
 lastChord: Bar -> Maybe Chord.Chord
@@ -101,6 +116,7 @@ lastChord bar =
    bar.chords
 
 --modify duration of Chord in Bar--
+--TODO: add power of two check--
 --not tested--
 changeChordDuration: Int -> Int -> Bar -> Maybe Bar
 changeChordDuration duration chordIndex bar =
