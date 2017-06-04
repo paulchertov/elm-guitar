@@ -33,7 +33,7 @@ splitArrayAt at array =
   )
 
 --removes item with target index in array--
---not tested--
+--tested--
 removeArrayItemAt: Int -> Array a -> Array a
 removeArrayItemAt at array =
   Array.append
