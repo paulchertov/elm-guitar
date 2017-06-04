@@ -38,7 +38,7 @@ removeArrayItemAt: Int -> Array a -> Array a
 removeArrayItemAt at array =
   Array.append
     (Array.slice 0 at array)
-    (Array.slice (at+1) (Array.length array - 1) array)
+    (Array.slice (at+1) (Array.length array) array)
 
 --insert item in array at target index--
 --not tested--

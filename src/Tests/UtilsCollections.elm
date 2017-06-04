@@ -1,5 +1,5 @@
 module Tests.UtilsCollections exposing (indexInArrayTest,
-  splitArrayAtTest)
+  splitArrayAtTest, removeArrayAtTest)
 
 import Html exposing (text, div)
 import Array exposing (Array, fromList, empty)
@@ -27,6 +27,18 @@ splitArrayAtTest =
     case1 = splitArrayAt 3 sequential
     case2 = splitArrayAt 10 sequential
     case3 = splitArrayAt -3 sequential
+  in
+    div []
+      [ case1 |> toString |> text
+      , case2 |> toString |> text
+      , case3 |> toString |> text
+      ]
+
+removeArrayAtTest =
+  let
+    case1 = removeArrayItemAt 3 sequential
+    case2 = removeArrayItemAt 10 sequential
+    case3 = removeArrayItemAt -3 sequential
   in
     div []
       [ case1 |> toString |> text
