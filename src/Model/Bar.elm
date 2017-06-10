@@ -6,7 +6,7 @@ import Array exposing (Array)
 import Html exposing (text, div, br)
 
 import Model.Chord as Chord
-import Utils.Numerical exposing (maxPowerOfTwo)
+import Utils.Numerical exposing (maxPowerOfTwo, isPowerOfTwo)
 import Utils.Collections exposing (removeArrayItemAt, insertArrayItemAt)
 
 --type for one bar--
@@ -103,9 +103,11 @@ deleteChord at bar =
 
 --insert Chord to target position at Bar--
 --not tested--
-insertChord: Int -> Chord.Chord -> Bar -> Bar
+insertChord: Int -> Chord.Chord -> Bar -> Result String Bar
 insertChord at chord bar =
-  { bar | chords = insertArrayItemAt at chord bar.chords }
+  if (length bar) + chord.duration > Chord.chordRange then
+    Err "Bar is full"
+  else Ok { bar | chords = insertArrayItemAt at chord bar.chords }
 
 --returns last Chord in Bar--
 --not tested--
@@ -116,7 +118,6 @@ lastChord bar =
    bar.chords
 
 --modify duration of Chord in Bar--
---TODO: add power of two check--
 --not tested--
 changeChordDuration: Int -> Int -> Bar -> Maybe Bar
 changeChordDuration duration chordIndex bar =
@@ -126,8 +127,8 @@ changeChordDuration duration chordIndex bar =
       let
         newDuration = (length bar) - chord.duration + duration
       in
-        if newDuration > Chord.chordRange then
-          Nothing
+        if (not <| isPowerOfTwo <| duration) || (newDuration > Chord.chordRange)
+          then Nothing
         else
           Just { bar | chords =
             Array.set chordIndex { chord | duration = newDuration } bar.chords
