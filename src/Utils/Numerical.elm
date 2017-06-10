@@ -1,4 +1,4 @@
-module Utils.Numerical exposing (maxPowerOfTwo)
+module Utils.Numerical exposing (maxPowerOfTwo, isPowerOfTwo)
 
 import Bitwise
 
