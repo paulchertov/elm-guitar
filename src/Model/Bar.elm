@@ -1,5 +1,5 @@
 module Model.Bar exposing (Bar, newBar, length, space, repr,
-  addChord, changeChordDuration,
+  addChord, insertChord, deleteChord, changeChordDuration,
   changePick, changeNote)
 
 import Array exposing (Array)
@@ -99,7 +99,7 @@ addChord bar =
 --not tested--
 deleteChord: Int -> Bar -> Bar
 deleteChord at bar =
-  { bar | chords = removeArrayItemAt  at bar.chords }
+  { bar | chords = removeArrayItemAt at bar.chords }
 
 --insert Chord to target position at Bar--
 --not tested--
@@ -131,7 +131,7 @@ changeChordDuration duration chordIndex bar =
           then Nothing
         else
           Just { bar | chords =
-            Array.set chordIndex { chord | duration = newDuration } bar.chords
+            Array.set chordIndex { chord | duration = duration } bar.chords
           }
 
 {-changes pick in target chord on target string in this bar
