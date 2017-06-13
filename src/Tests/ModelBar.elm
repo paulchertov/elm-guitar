@@ -32,9 +32,52 @@ barTest =
           Ok ok -> ok
           Err _ -> emptyBar
 
+    firstChordFull =
+      case Chord.newChord 256 |> Chord.changePick 0 string1 "3" of
+        Ok chord -> chord
+        Err _ -> Chord.newChord 256
+    firstChordHalf =
+      case Chord.newChord 128 |> Chord.changePick 0 string1 "3" of
+        Ok chord -> chord
+        Err _ -> Chord.newChord 256
+    secondChordHalf =
+      case Chord.newChord 128 |> Chord.changePick 1 string2 "7" of
+        Ok chord -> chord
+        Err _ -> Chord.newChord 128
+    secondChordQuarter =
+      case Chord.newChord 64 |> Chord.changePick 1 string2 "7" of
+        Ok chord -> chord
+        Err _ -> Chord.newChord 128
+    thirdChord =
+      case Chord.newChord 64 |> Chord.changeNote 2 "B3" of
+        Ok chord -> chord
+        Err _ -> Chord.newChord 64
+
+    adjustedWithPluck =
+      case Bar.insertChord 0 firstChordFull <| Bar.deleteChord 0 emptyBar of
+        Ok bar -> bar
+        Err _ -> emptyBar
+    adjustedTwoChord =
+      case
+        Result.andThen (Bar.insertChord 1 secondChordHalf)
+        <| Bar.insertChord 0 firstChordHalf
+        <| Bar.deleteChord 0 emptyBar
+      of
+        Ok bar -> bar
+        Err _ -> emptyBar
+    adjustedThreeChord =
+      case
+        Result.andThen (Bar.insertChord 2 thirdChord)
+        <| Result.andThen (Bar.insertChord 1 secondChordQuarter)
+        <| Bar.insertChord 0 firstChordHalf
+        <| Bar.deleteChord 0 emptyBar
+      of
+        Ok bar -> bar
+        Err _ -> emptyBar
+
     deletedEmpty =
       case Bar.insertChord 0 (Chord.newChord 256) <| Bar.deleteChord 0 barWithPluck of
-        Ok chord -> chord
+        Ok bar -> bar
         Err _ -> threeChordBar
     deletedWithPluck =
       case Bar.changeChordDuration 256 0 <| Bar.deleteChord 1 twoChordBar of
@@ -48,7 +91,10 @@ barTest =
     div []
      <| List.map text
      <| List.map Basics.toString
-     [ emptyBar == deletedEmpty
+     [ barWithPluck == adjustedWithPluck
+     , twoChordBar == adjustedTwoChord
+     , threeChordBar == adjustedThreeChord
+     , emptyBar == deletedEmpty
      , barWithPluck == deletedWithPluck
      , twoChordBar == deletedTwoChord
      ]
