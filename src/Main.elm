@@ -1,14 +1,12 @@
 import Html exposing (beginnerProgram, text)
 
-import Update.Msg exposing (Msg)
-import Model.Model exposing (Model, newModel)
+--import Update.Msg exposing (Msg)
+--import Model.Model exposing (Model, newModel)
 
-import Tests.ModelBar exposing (barTest)
-update msg model =
-  model
+import Tests.ViewEvents exposing (eventTest, update, newModel)
 
 view model =
-  barTest
+  eventTest model
 
 main =
   beginnerProgram { model = newModel, view = view, update = update }
