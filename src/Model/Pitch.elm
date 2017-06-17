@@ -1,5 +1,5 @@
 module Model.Pitch exposing (notes, fretsCount, tunings, pickAt, frequency,
- toString, fromString, fromString_)
+ toString, fromString, fromString_, getExistingTuning)
 
 import Array exposing (Array, fromList, get)
 import Dict exposing (get, fromList)

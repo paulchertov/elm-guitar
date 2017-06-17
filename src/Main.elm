@@ -1,12 +1,25 @@
 import Html exposing (beginnerProgram, text)
 
---import Update.Msg exposing (Msg)
---import Model.Model exposing (Model, newModel)
+import Array
 
-import Tests.ViewEvents exposing (eventTest, update, newModel)
+import Update.Msg exposing (Msg)
+import Model.Model exposing (Model)
+import Model.Pitch exposing (getExistingTuning)
+import Model.Bar exposing (newBar)
 
-view model =
+import View.View exposing (view)
+
+newModel =
+    { bars = Array.fromList [newBar]
+    , tuning = getExistingTuning "EBGDAE"
+    , error = ""
+    , playing = False
+    , selection = Model.Model.NothingSelected
+    }
+{-view model =
   eventTest model
-
+-}
+update msg model =
+  model
 main =
   beginnerProgram { model = newModel, view = view, update = update }

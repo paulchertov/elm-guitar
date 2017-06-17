@@ -1,4 +1,4 @@
-module Model.Model exposing (Model, Selection, newModel)
+module Model.Model exposing (Model, Selection(..), newModel)
 
 import Array exposing (Array, empty)
 
