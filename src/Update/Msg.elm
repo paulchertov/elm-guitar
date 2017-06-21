@@ -1,5 +1,5 @@
-module Update.Msg exposing (Msg)
+module Update.Msg exposing (Msg(..))
 
 type Msg =
-  Selected
+  ChordSelected Int Int
   | NothingHappened
