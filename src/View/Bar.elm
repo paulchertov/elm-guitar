@@ -8,40 +8,9 @@ import Update.Msg exposing (Msg)
 import Model.Model exposing (Model, Selection(..))
 import Model.Bar exposing (Bar)
 
---type for currying settings to bar mapper--
-type alias BarSettings =
-  { selectedChord: Maybe Int
-  , selectedPick: Maybe Int
-  , tuning: Array Int
-  }
+import View.Common exposing (BarView(..))
+import View.Chord exposing (mapChord)
 
---renders bar as tab (strings with plucks)--
---dummy, not implemented chords mapping--
-tabBar: Int -> BarSettings -> Bar -> Html.Html Msg
-tabBar index settings bar =
-  let
-    txt = toString { index = index
-    , chord = settings.selectedChord
-    , pick = settings.selectedPick
-    , tuning = settings.tuning
-    , bar = bar
-    }
-  in
-    div [class "tab-bar"] [text txt]
-
---renders bar as notes--
---dummy, not implemented chords mapping--
-noteBar: Int -> BarSettings -> Bar -> Html.Html Msg
-noteBar index settings bar =
-  let
-    txt = toString { index = index
-    , chord = settings.selectedChord
-    , pick = settings.selectedPick
-    , tuning = settings.tuning
-    , bar = bar
-    }
-  in
-    div [class "note-bar"] [text txt]
 
 --Function for rendering one Bar--
 --not tested--
@@ -68,12 +37,16 @@ mapBar model =
             else (Nothing, Nothing)
           _ -> (Nothing, Nothing)
       tabSettings =
-        { selectedChord = tabSelectedChord
+        { how = Tab
+        , barIndex = index
+        , selectedChord = tabSelectedChord
         , selectedPick = tabSelectedPick
         , tuning = model.tuning
         }
       noteSettings =
-        { selectedChord = noteSelectedChord
+        { how = Note
+        , barIndex = index
+        , selectedChord = noteSelectedChord
         , selectedPick = noteSelectedPick
         , tuning = model.tuning
         }
@@ -81,6 +54,10 @@ mapBar model =
       div
         [ class "bar" ]
         [ text bar.comment
-        , tabBar index tabSettings bar
-        , noteBar index noteSettings bar
+        , div [class "tab-bar"]
+            <| Array.toList
+            <| Array.indexedMap (mapChord tabSettings) bar.chords
+        , div [class "note-bar"]
+            <| Array.toList
+            <| Array.indexedMap (mapChord noteSettings) bar.chords
         ]

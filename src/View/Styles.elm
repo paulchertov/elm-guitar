@@ -1,8 +1,8 @@
-module View.Styles exposing (style_tag)
+module View.Styles exposing (styleTag)
 import Html exposing (text, node)
 import Html.Attributes exposing (class, type_)
 
-style_text = """
+styleText = """
 #elm-guitar .bar .chord {
   float:left;
 }
@@ -16,5 +16,7 @@ style_text = """
   line-height: 0.5;
 }
 """
-style_tag =
-  node "style" [type_ "text/css"] [text style_text]
+
+--tag containing app styles
+styleTag =
+  node "style" [type_ "text/css"] [text styleText]
