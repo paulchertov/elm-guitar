@@ -10,6 +10,6 @@ import View.Bar exposing (mapBar)
 view model =
   div
     [id "elm-guitar"]
-    <| List.append [styleTag]
+    <| List.append [styleTag, text <| toString model]
     <| Array.toList
     <| Array.indexedMap (mapBar model) model.bars

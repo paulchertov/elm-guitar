@@ -8,8 +8,8 @@ import Model.Bar exposing (Bar)
 
 type Selection =
   NothingSelected
-  | NoteBarSelected Int Int Int
-  | TabBarSelected Int Int Int
+  | NotePickSelected Int Int Int
+  | TabPickSelected Int Int Int
   | ChordSelected Int Int
 
 type alias Model =

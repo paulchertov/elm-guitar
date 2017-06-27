@@ -20,7 +20,7 @@ mapBar model =
     let
       (tabSelectedChord, tabSelectedPick) =
         case model.selection of
-          TabBarSelected bar chord pick ->
+          TabPickSelected bar chord pick ->
             if bar == index then
               (Just chord, Just pick)
             else (Nothing, Nothing)
@@ -31,7 +31,7 @@ mapBar model =
           _ -> (Nothing, Nothing)
       (noteSelectedChord, noteSelectedPick) =
         case model.selection of
-          NoteBarSelected bar chord pick ->
+          NotePickSelected bar chord pick ->
             if bar == index then
               (Just chord, Just pick)
             else (Nothing, Nothing)

@@ -8,6 +8,7 @@ import Html.Events exposing (onClick)
 import Model.Chord exposing (Chord)
 import Update.Msg exposing (Msg(..))
 import View.Common exposing (BarView(..))
+import View.Pick exposing (mapPick)
 
 type alias BarSettings =
   { how: BarView
@@ -31,7 +32,16 @@ mapChord settings =
         Nothing -> class "chord"
       attrs =
         [ tagClass
-        , onClick <| ChordSelected settings.barIndex index
+--        , onClick <| ChordSelected settings.barIndex index
         ]
+      chordSettings =
+        { bar = settings.barIndex
+        , chord = index
+        , selected = settings.selectedPick
+        , how = settings.how
+        , tuning = settings.tuning
+        }
     in
-      div attrs [text <| Basics.toString chord.picks]
+      div attrs
+      <| Array.toList
+      <| Array.indexedMap (mapPick chordSettings) chord.picks

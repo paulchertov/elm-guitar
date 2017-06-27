@@ -1,5 +1,6 @@
 module Utils.Collections exposing(indexInArray,
-  splitArrayAt, removeArrayItemAt, insertArrayItemAt)
+  splitArrayAt, removeArrayItemAt, insertArrayItemAt,
+  defaultGetFromArray)
 
 import Array exposing (Array, toList)
 import Tuple
@@ -20,6 +21,16 @@ indexInArray needle haystack =
             Just tail -> indexOf (index+1) needle tail
   in
     indexOf 0 needle <| Array.toList haystack
+
+{-returns item with the given index if such item exists
+othervise returns defau value-}
+--not tested--
+defaultGetFromArray: Int -> a  -> Array a -> a
+defaultGetFromArray index default array =
+  case Array.get index array of
+    Just result -> result
+    Nothing -> default
+
 
 {-returns two parts of array in Tuple: first one - all items with index
 less than provided value, second - with index higher than or equal to that

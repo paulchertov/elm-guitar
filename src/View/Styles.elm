@@ -6,7 +6,9 @@ styleText = """
 #elm-guitar .bar .chord {
   float:left;
 }
-
+.chord .string {
+    display: block;
+}
 #elm-guitar .bar .tab-bar .chord .string{
   margin: 0px;
   line-height: 0.5;
