@@ -8,7 +8,7 @@ import Html.Events exposing (onClick)
 import Utils.Collections exposing (defaultGetFromArray)
 import Model.Pick exposing (Pick, toPluck, toNote)
 import Update.Msg exposing (Msg(..))
-import View.Events exposing (onChange)
+import View.Events exposing (onChange, onClickPreventDefault)
 import View.Common exposing (BarView(..))
 
 type alias ChordSettings =
@@ -43,5 +43,8 @@ mapPick settings =
       content = case settings.how of
         Tab -> toPluck (defaultGetFromArray index 0 settings.tuning) pick
         Note -> toNote pick
+      attrs = if selected then
+        [class "string", event]
+        else [class "string", event, onClickPreventDefault]
     in
-      tag [class "string", event] [text content]
+      tag attrs [text content]

@@ -32,7 +32,7 @@ mapChord settings =
         Nothing -> class "chord"
       attrs =
         [ tagClass
---        , onClick <| ChordSelected settings.barIndex index
+        , onClick <| ChordSelected settings.barIndex index
         ]
       chordSettings =
         { bar = settings.barIndex
